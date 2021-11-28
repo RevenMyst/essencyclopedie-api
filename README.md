@@ -1,1 +1,1 @@
-# essencyclopedie-api
+# Essencyclopédie API
