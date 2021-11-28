@@ -3,7 +3,7 @@ const dbUtils = require('../utils/db');
 
 async function getCardById(req, res, next) {
   try {
-    var rows = await dbUtils.query("SELECT id,name,subname as title, img as image, type, classe FROM cards where id = ?", [req.params.id]);
+    var rows = await dbUtils.query("SELECT id,name,subname as title, img as image, type, classe FROM cards where id = ? AND active = true", [req.params.id]);
 
     if (!rows.length) return res.status(404).json({ error: "No card found" }); 
       
@@ -25,7 +25,7 @@ async function getCardById(req, res, next) {
         rows[0].categories = await dbUtils.query("SELECT id,name FROM hasCat,categorie WHERE hasCat.idCat=categorie.id AND hasCat.idCard = ?" , [req.params.id]);
       }
     }
-    res.status(200).json(rows);
+    res.status(200).json(rows[0]);
       
     
   
